@@ -1,0 +1,497 @@
+Good Morning All
+
+Welcome to Generative AI and LLM Models Training 
+	   ============================
+
+This is Palani Karthikeyan(Call: Karthik) - Trainer. 
+        ---------------------------------
+
+#####################################################################################################
+
+AI Vs ML Vs DL Vs Gen AI 
+
+NLP
+
+langchain
+|
+RAG
+|
+streamlit,groq
+|
+chatbot
+------------------------------------------------------------------------------------------------------
+General Programming
+----------------------
+programmer => input -->[system]--->output
+
+ Vs
+
+ML programming
+----------------
+programmer ->input + output ->[system] -->algorithm 
+			
+ 1984: Q: PM Indian A: .... -->[system] ->
+						
+ 2025  Q:  .....               [      ] -> ..
+
+Unstructured (data) -> Data analysis ->[Data ->Model]
+		       --------------
+		    Data loading ->CleanUp->EDA	 ->[Model - ML]
+
+Example: 
+sales data -> sales.csv 		-> salescost ?
+	sales cost  qty
+	 1000		
+	  	    
+         ABC,:	
+
+Vs
+infra  -> devinfra.log			 -> cpu ? idle?
+           node cpu mem shm https ....
+
+										  
+ 
+DL 
+---
+ Convolution Neural Network (CNN) - image classification
+ Recurrent Neural Network (RNN)  - timeseries ,speech
+ Generative Adversarial networks (GANs) - synthetic data
+
+ ML data set -> CPU - small
+ 
+ DL Huge data -> GPU - large
+
+Neural network - node - neurons
+ 
+ [ Input Layer ]  ---> [Hidden Layer ] --> [output layer ] 
+ - features		- computation      - final result
+
+[image] -->[Hidden] -->[output]
+ |
+ |__[  ] array(numpyArray)
+      |__[ ] 	
+
+GenAI
+-------
+Generating new content (or) data 
+		
+data = text,image,videos,sound ...
+	|
+LLM
+---
+Generate Text - LLM
+
+
+2004 --> S/w (Desktop Software) =>[ Super market ]
+					|
+					owner
+					+
+					AI
+2025
+		search 
+		product - features 
+		...
+		chatbot
+		....
+		-----------------
+		existing trained model - pre-trained model + customer need based data input + prompt
+					 -----------------------------------------------------------
+						|->fine-tuning - llm
+		RAGappln
+
+[.pdf ...] 
+  ....
+-----------//  <person> <=== 
+ |
+Folder
+---------------
+
+UI-Appn
+
+Q: .............
+A: ....
+---------------------------------
+ person  - 100books about animal
+ 	   --------//data
+		+
+		5more books 
+
+Q: 
+A:
+#################################################################################################
+
+Python program
+------------------
+ |-> class <--> object //design model
+
+
+dynamic type programming
+	
+   var = value
+   ---------------
+
+  1. procedure style code
+  --------------------------
+	 ->direct style of approach
+
+	var = 10
+	print(var)
+	def fx():
+	   ...
+	fx() <-- direct call
+
+	def fy(a1,a2):
+	  ...
+        fy(arg1,arg2) <-- direct call
+
+
+  2. object oriented style code
+  -----------------------------
+	class className:
+		var = 10
+		def fx(self):
+			...
+	
+	obj = className()
+	obj.var <--- object based call
+	obj.fx() <-- method call - object based call
+
+
+	obj1 = className()
+	obj1.var = 20
+	
+	obj2 = className()
+	obj2.var = 30
+
+	obj3 = className()
+	obj3.var = "Hello"
+
+	+------------------------------+
+	| building blueprint sheet     |
+	|                              | <== class
+	+------------------------------+
+
+	|			|
+      +------------+     +----------+
+      |		   |     |	    | <== object
+      |		   |     |	    |  
+      +------------+     +----------+
+	1st Block	  2nd Block   <== memory
+
+
+ 3. Functional style code
+ ---------------------------
+  Single line code
+  # computation 
+  # large dataset computed data - initialization
+  
+ >>> L=[]
+>>>
+>>> def f1(a):
+...     return a+100
+...
+>>> for var in [10,20,30,40,50]:
+...     r = f1(var)
+...     L.append(r)
+...
+>>> L
+[110, 120, 130, 140, 150]
+>>>
+>>> list(map(lambda a:a+100,[10,20,30,40,50]))
+[110, 120, 130, 140, 150]
+>>>   
+========================================================================================================
+Recurrent Neural Network(RNN)  >2015
+-----------------------------
+Input ->[word1]->[word2]->[word3]->...[wordN] => Result
+	|___________________________________|
+		Sentence - paragraph 		
+			
+
+Improved Version RNN  - 2017
+|
+LongShort-TermMemory (LSTM) 
+|
+memory control unit 
+|
+word1 word2
+|
+(cell)
+|	
+node	
+
+Transformer - 2017 Attention is All you need
+		   -------------------------
+ --------
+   |->self-attention + positional encoding
+   |->encoding - decoding 
+			 
+[word1 word2 ... wordN]
+
+######################################################################################################
+
+NLP
+----
+Application
+--------------		
+Hello Good morning   <Google Translate>   .....  .....
+(English) ------------------------------  ( Other language)
+------------------			  =================
+Hello	-> [ 10101 ]
+------	   ---------
+Human	     Machine  
+
+
+  BERT / Transformer 
+   |
+  Text processing Word Embedding
+   |
+  RNN , LSM
+   |
+  word2vector
+   |
+  Text - process2  (BOW,ngrams)
+   |
+  Test - process1 ( tokenization ; lemmatization ; stopwords)
+
+
+NLP 
+----
+
+1.Corpus  	- paragraph
+2.Documents	- sentence
+3.Vocabulary	- unique words 
+4.words		- words in paragraph
+---------	 ---------------------
+
+1. Tokenization
+------------------
+My name is Karthik and i have a interest in teaching NLP. i also do coding.
+----------------------------------------------------------------------------//corpus 
+
+My name is Karthik and i have a interest in teaching NLP. //Document1
+i also do coding.//Document2
+
+sentence to word tokenize 
+
+
+i like to drink apple juice. my friend likes mango juice.
+
+i like to drink apple juice
+my friend likes mango juice
+
+[i like to drink apple juice my friend likes mango ] - 10 words //vocabulary 
+
+the food is good
+the food is bad
+--------------------
+
+the food is good bad
+--------------------------//stop words - apply stop words
+
+
+ food  good  bad <-- after apply stop words
+ --------------- // 3 words
+
+
+food =>  1 0 0
+good =>  0 1 0
+bad  =>  0 0 1
+        --------//vector
+-----------------------------------------
+Bag of words (BOW)
+-------------------
+vocabulary  	frequency
+food		1
+....................
+ngrams
+|
+
+food good bad
+----------------
+food good bad
+------------------n = 3
+		
+w1 = food	food -> |  1  0   0 |
+
+w2 = good	good -> |  0  1   0 |
+
+w3 = bad	bad  -> |  0  0   1 |
+
+n=2
+s1 = food good		1 0
+s2 = good bad		0 1 
+
+n=3
+s1= food good bad	1
+		
+
+n=N
+--------------------------------------------------
+DataSet
+----------
+He is a good boy
+she is a good girl
+boy and girl are good
+-------------------------
+step 1: convert to lowercase 
+step 2: apply stop words
+step 3: unique words
+
+step 1: convert to lowercase 
+S1: he is a good boy
+S2: she is a good girl
+S3: boy and girl are good
+
+step 2: apply stop words
+-------------------------
+
+S1: good boy
+S2: good girl
+S3: boy girl good
+
+Step3: Unique words
+--------------------
+good boy girl
+--------------//3 words
+one-hot encoding
+Vs
+BOW - encoding + frequency 
+
+Words		frequency
+good		3
+boy		2
+girl		2
+----------------------------------------
+	good	boy	girl	
+S1	1	1	0
+S2	1	0	1
+S3	1	1	1	
+----------
+TF-IDF
+=======
+TermFrequency-Inverse Document Frequency
+
+	No.of repetation of words in sentence
+	--------------------------------------
+TF =	  No.of words in sentence 
+
+
+		No.of sentences
+IDF = logc( --------------------------
+                No.of sentence containing the words)
+
+S1: good boy
+S2: good girl
+S3: boy girl good
+
+
+TF
+---
+	S1	S2	S3
+
+good	1/2	1/2	1/3
+
+boy	1/2	0/2	1/3
+
+girl	0/2	1/2	1/3
+
+--------------------------------------------------------------
+-------------------------------------------------------------
+
+ex: oracle 23 ai vector search
+--------------------------------
+  |->database - vector <type>
+		|
+		10101
+
+unstructed data(Text ; image , audio,vidow, other format) ----->[10101010]
+
+'Hello' --->[101010]
+cat.jpg --->[120202]
+file.mp3 --->[303300]
+file.vlc --->[303031]
+	     --------------->Stored to DB(Vector Database)//GenAI RAG Appln
+
+-------------------------------------------------------------
+
+In General 
+python => python.org  => CPython => GIL is enabled 
+				   ------
+				   //like a mutex - lock
+ 
+IPython  -->GIL is disabled 
+	    ---------------//
+		|->thread creation
+		|->thread synchronization
+
+download anaconda -> jupyter pycharm vscode ... => IPython 
+...................
+	|-> all ml/DL modules are loaded.
+		------
+	pip install <module>
+--------------------------------------------------------------
+
+pip install nltk
+
+import nltk
+nltk.download('punkt_tab')
+
+corpus = '''Hello welcome,to Gen AI NLP Lecture
+Please do activity ! to become expert in NLP'''
+
+from nltk.tokenize import sent_tokenize
+sent_tokenize(corpus)
+
+--------------------------------------
+from nltk.tokenize import sent_tokenize
+from nltk.tokenize import word_tokenize
+
+corpus = '''Hello welcome,to Gen AI NLP Lecture
+Please do activity ! to become expert in NLP'''
+
+#print(sent_tokenize(corpus))
+print(word_tokenize(corpus))
+
+==========================================================================================================
+stemming
+----------
+reducing word - lemma
+
+eating ->eat
+history ->histori
+  
+PortStemmer - class 
+		|-> Stemmer object
+				|->stem('input_root_word')
+.......................................
+N-gram
+--------
+word1 word2 word3 ..
+
+
+P(wn|wn-1,wn-2,....wn)
+  
+N-Grams
+
+Data: likes read NLP applications
+
+Type
+-----
+N=1  Unigram ->[likes read NLP applications]
+
+N=2  Bigram  ->['likes read','read NLP','NLP applications'...]
+
+N=3  Trigram 
+
+N=4   4gram
+
+N=5   5gram
+
+N=6   ..
+..
+N
+
+###########################################################################################################
+
+############ END OF THE DAY1 ####################
