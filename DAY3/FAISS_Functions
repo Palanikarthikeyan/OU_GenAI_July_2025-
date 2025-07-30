@@ -1,0 +1,9 @@
+| Function / Method               | Purpose                                   |
+| ------------------------------- | ----------------------------------------- |
+| FAISS.from_texts()           | Create FAISS index from text + embeddings |
+| similarity_search()           | Get top `k` similar documents             |
+| as_retriever()                | Convert to retriever for LLM              |
+| save_local() / load_local() | Persist and reload index                  |
+| add_texts()                    | Add new data to index                     |
+| index.search()                | Access raw FAISS search (advanced)        |
+--------------------------------------------------------------------------------------------
