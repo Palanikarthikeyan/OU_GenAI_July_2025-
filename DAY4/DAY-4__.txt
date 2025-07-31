@@ -1,0 +1,185 @@
+create_stuff_documents_chain()
+-------------------------------
+chains for working with multiple documents and summarizing or extracting answers using an LLM.
+ 
+To combine multiple documents into a single prompt and then pass this combined text to an LLM to perform tasks like summarization, Q&A, etc.
+
+stuff
+-----
+Means it concatenates all the documents together into one long string.
+That string is then inserted into a prompt.
+The LLM is asked to generate a response using the entire input.
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+How it works
+-------------
+create_stuff_documents_chain():
+
+All documents are combined (stuffed) into the {context} part of a prompt.
+
+LLM receives everything at once and generates a response.
+
+chain = create_stuff_documents_chain(llm=llm, prompt=prompt)
+
+response = chain.invoke({"input_documents": docs, "question": "What is LangChain?"})
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+Syntax:-
+---------
+from langchain.chains import create_stuff_documents_chain
+chain = create_stuff_documents_chain(llm, prompt)
+
+llm: A language model instance 
+prompt: A PromptTemplate that defines how the documents and user query will be formatted into a single prompt.
+
+Example
+--------
+pip install langchain langchain-community chromadb
+
+
+
+Step 1: Basic Imports and Setup
+--------------------------------------
+from langchain_community.llms import Ollama
+from langchain.prompts import PromptTemplate
+
+# from langchain.chains import create_stuff_documents_chain, create_retrieval_chain
+
+from langchain.chains.combine_documents import create_stuff_documents_chain
+
+from langchain.chains import create_retrieval_chain
+
+from langchain_core.documents import Document
+from langchain_community.vectorstores import Chroma
+from langchain_community.embeddings import OllamaEmbeddings
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.vectorstores import VectorStoreRetriever
+
+
+Step 2: Load Some Sample Text
+--------------------------------------
+# Sample documents (could be loaded from files too)
+docs = [
+    Document(page_content="Python is a popular programming language for AI."),
+    Document(page_content="LangChain helps build apps with LLMs using chains."),
+    Document(page_content="Ollama lets you run models like LLaMA and Mistral locally.")
+]
+Step 3: create_stuff_documents_chain()
+--------------------------------------
+Define Prompt Template
+
+prompt = PromptTemplate.from_template("""
+You are a helpful assistant. Use the following documents to answer the question.
+
+{context}
+
+Question: {question}
+Answer:""")
+
+Step 4: Setup LLM
+-------------------
+llm = Ollama(model="llama3")
+
+Step 5: Create the Chain
+-----------------------------
+stuff_chain = create_stuff_documents_chain(llm=llm, prompt=prompt)
+
+# Run it
+response = stuff_chain.invoke({
+    "input_documents": docs,
+    "question": "What is Ollama?"
+})
+
+print(response)
+
+---------------------------------------------------------------------------------------------
+
+create_stuff_documents_chain(llm=llm, prompt=prompt) 
+
+This creates a document chain where multiple documents are stuffed into the prompt.
+
+from langchain.chains import create_stuff_documents_chain
+
+chain = create_stuff_documents_chain(llm=llm, prompt=prompt)
+response = chain.invoke({
+    "input_documents": docs,
+    "question": "What is LangChain?"
+})
+
+Behavior:
+Accepts multiple documents (input_documents)
+Merges them into {context} in the prompt
+Passes to the LLM
+Returns the output
+
+chain = prompt | llm_obj
+
+This uses the LangChain Expression Language (LCEL) — a more composable and functional-style way to chain components.
+
+from langchain_core.runnables import Runnable
+llm_obj = Ollama(model="gemma:2b")
+
+chain = prompt | llm_obj
+response = chain.invoke({"question": "What is LangChain?"})
+
+Behavior:
+This creates a simple chain from prompt → LLM
+<<< It does not automatically handle documents or "stuffing" >>>
+It just feeds whatever dictionary keys you provide into the prompt, then the LLM
+
+Use case:
+Good for simple chains, single input→output tasks, or 
+when you're manually managing the prompt variables (no document merging logic).
+
+
+A. With create_stuff_documents_chain():
+======================================
+prompt = PromptTemplate.from_template("Answer based on:\n{context}\n\nQuestion: {question}")
+
+chain = create_stuff_documents_chain(llm=llm_obj, prompt=prompt)
+
+chain.invoke({"input_documents": docs, "question": "What is Ollama?"})
+
+B. With LCEL (prompt | llm_obj):
+=================================
+prompt = PromptTemplate.from_template("Question: {question}")
+
+chain = prompt | llm_obj
+
+chain.invoke({"question": "What is Ollama?"})
+
+In the second example, you are responsible for providing the full prompt content (including documents) manually — no document merging is done for you.
+----------------------------------------------------------------------------------------------
+
+create_retrieval_chain()
+--------------------------
+A retriever that selects relevant docs per query
+Dynamically retrieves relevant docs from vector DB
+
+ContextStrategy - Search + filter based on similarity Vs "Stuff" all docs into context
+
+Embed and Store Documents
+----------------------------
+# Split text into smaller chunks
+splitter = CharacterTextSplitter(chunk_size=200, chunk_overlap=0)
+split_docs = splitter.split_documents(docs)
+
+# Use Ollama's embedding model
+embedding = OllamaEmbeddings(model="llama3")
+
+# Create Chroma vectorstore
+vectordb = Chroma.from_documents(split_docs, embedding=embedding)
+
+# Create a retriever
+retriever = vectordb.as_retriever()
+
+Build a Retrieval Chain
+------------------------
+retrieval_chain = create_retrieval_chain(retriever=retriever, combine_docs_chain=stuff_chain)
+
+# Ask a question
+response = retrieval_chain.invoke({"question": "What is LangChain?"})
+
+print(response)
+-------------------------------------------------------------------------------------------------------
+
